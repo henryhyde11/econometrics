@@ -24,8 +24,24 @@ a = rt(10000, 7)
 qt(0.975, 14, lower.tail = T)
 
 
-###
+### Ejemplo 8.9
 
-qt(0.05, 14) - (-qt(0.025, 14))
+a = qt(0.05, 14, lower.tail = F)
+b = qt(0.975, 14, lower.tail = F)
 
-qt(0.025, 14)
+pt(a, 14) - pt(b, 14)
+
+
+### Ejemplo 8.10
+
+a = pt(-1.761, 14) - 0.045
+
+k = qt(a, 14)
+
+
+
+
+#Ejercicios
+
+
+
