@@ -81,4 +81,10 @@ rsconnect/
 # R package: bookdown caching files
 /*_files/
 
+
+## Excel.
+*.xls
+
+
+
 # End of https://www.toptal.com/developers/gitignore/api/r
