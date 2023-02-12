@@ -1,23 +1,16 @@
+# Ejemplo 1.
 
 install.packages("car")
-install.packages("normtest")
 install.packages("readxl")
 install.packages("Rcpp")
+
 library(Rcpp)
-
-
-## "LOS PAQUETES SE ACTIVAN USANDO LA FUNCIÓN library()"
-library(normtest)
 library(car)
 library(readxl)
 
 
-## "Lectura de datos desde Excel. Se usa la función read_excel()"
-
-library(readxl)
-
-
 Datos = read_excel("C:/Users/USUARIO/econometrics/Datos_Demanda_Un_Bien.xls")
+
 Datos=data.frame(Datos) 
 attach(Datos) 
 head(Datos)
@@ -26,69 +19,58 @@ head(Datos)
 "El valor de k = 4"
 k=4
 
-
 "El nivel de significancia es alpha = 0.05"
 alpha = 0.05
-
 
 "El tamaño de la muestra es n = 35"
 n = 35 
 
+# "MATRIZ DE DATOS X0 las 38 observaciones"
+X0 = as.matrix(cbind(1,Datos[,3:5]))
+X0
 
-
-## "MATRIZ DE DATOS X0 las 38 observaciones"
-X0=as.matrix(cbind(1,Datos[,3:5]))
 "El vector y0 de longitud 38 con tres observaciones faltantes"
 y0=cbind(Y)
 
-
 "LA MATRIZ X ES"
-X=X0[1:35,]
-
+X = X0[1:35,]
 
 "El vector y es"
-y=cbind(Datos[1:35,2])
+y = cbind(Datos[1:35,2])
 
 
 "El tamaño de la muestra es"
 (n=length(y))
 
 
-"Las variables son"
-"La varible X2t"
-X2t=cbind(X[,2])
+#Las variables son:
 
+#La varible X2t
+X2t = cbind(X[,2])
 
 "La varible X3t"
-X3t=cbind(X[,3])
-
+X3t = cbind(X[,3])
 
 "La varible X4t"
-X4t=cbind(X[,4])
-
+X4t = cbind(X[,4])
 
 "LA MATRIZ X'X ES: LA FUNCIÓN t(X) nos da la transpuesta de la matriz X"
 (XtX=t(X)%*%X)
 
-
-"el determinante de la matriz XtX es"
-(det_XtX=det(XtX))
-
+"El determinante de la matriz XtX es"
+(det_XtX = det(XtX))
 
 "LA MATRIZ X'X inversa ES"
-XtX_inv=solve(XtX)
+XtX_inv = solve(XtX)
 XtX_inv
 
-
 "EL VECTOR Xty ES"
-Xty=t(X)%*%y
+Xty = t(X)%*%y
 Xty
 
-
 "EL ESTIMADOR OLS b ES"
-b=XtX_inv%*%Xty
+b = XtX_inv%*%Xty
 b
-
 
 "EL yt estimado es"
 ye = cbind(X%*%b)
@@ -97,30 +79,29 @@ ye
 
 
 "Otra alternativa yte1=b1+b2x2t ...."
-yte1 = b[1] + b[2] * X2t + b[3] * X3t + b[4] * X4t
+yte1 = b[1] + (b[2] * X2t) + (b[3] * X3t) + (b[4] * X4t)
 yte1
-
-
 
 "DIAGRAMA DE DISPERSIÓN Yt VS Yt ESTIMADO" 
 "SE USA LA FUNCIÓN plot"
 
 plot(y, ye, type = "p", pch = 8, col="red",
      main = "Diagrama de dispersión\n Yt vs Yte", 
-     xlab ="Ventas observadas", ylab="Ventas estimadas")
-
+     xlab ="Ventas observadas",
+     ylab="Ventas estimadas")
 
 abline(a = 0, b = 1, lty = 2) # La opción gráfica lty da el tipo de línea
 
 
+"Otra alternativa: Un diagrama lineal con Yt y Yt_e 
+en el eje vertical"
 
-"Otra alternativa: Un diagrama lineal con Yt y Yt_e en el eje vertical"
 plot(y, type = "l", main = "Comparación Yt vs Yt_e", ylab = "Yt - Yt_e", xlab = 
        "Indice", lty = 1, lwd = 1, ylim = c(35,125))
 
 lines(ye, col="red", lty = 2, lwd = 1)
-legend(x=1, y=122, legend = c("Observado","Estimado"), lty = c(1,2), lwd = c(1,1))
-
+legend(x=1, y=122, legend = c("Observado","Estimado"),
+       lty = c(1,2), lwd = c(1,1))
 
 
 "La matriz de pronósticos es "
