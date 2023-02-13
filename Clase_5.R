@@ -115,7 +115,6 @@ lines(ye, col="red", lty = 2, lwd = 1)
 legend(x=1, y=122, legend = c("Observado","Estimado"),
        lty = c(1,2), lwd = c(1,1))
 
-
 "La matriz de pronósticos es "
 xf = x0[36:38,]
 xf
@@ -135,23 +134,21 @@ T_P
 
 plot(y, type = "l", main = "Comparación Yt vs Yt_e",
      ylab = "Yt - Yt_e",
-     xlab = "Indice", lty = 1, lwd = 1, ylim = c(35,125))
+     xlab = "Indice", lty = 1, lwd = 1)
 
 lines(ye, col="red", lty = 2, lwd = 1)
 legend(x=1, y=122, legend = c("Observado","Estimado"), lty = c(1,2), lwd = c(1,1))
 
 
-
 "El vector y0 estimado es:"
-y0e = X0%*%b
-
+y0e = x0%*%b
 
 "Gráfica de los pronósticos"
 
 plot(y0e, type = "l", main = "Grafica de los pronósticos",
      ylab = "Y0te - Yt0",
      xlab = "Indice",
-     lty = 1, lwd = 1, ylim = c(40, 135))
+     lty = 1, lwd = 1)
 
 lines(y0, col="red", lty = 2, lwd = 1)
 
