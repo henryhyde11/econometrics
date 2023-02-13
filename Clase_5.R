@@ -1,4 +1,4 @@
-# Ejemplo 1.
+# Ejemplo 2: con logaritmos.
 
 install.packages("car")
 install.packages("readxl")
@@ -33,58 +33,58 @@ x3 = log(Datos$X3)
 x4 = log(Datos$X4)
 
 datos = cbind(y, x2, x3, x4)
-datos
+View(datos)
 
 
 # "MATRIZ DE DATOS X0 las 38 observaciones"
-X0 = as.matrix(cbind(1,Datos[,3:5]))
-X0
+x0 = as.matrix(cbind(1, datos[,2:4]))
+x0
 
 "El vector y0 de longitud 38 con tres observaciones faltantes"
-y0=cbind(Y)
+y0 = cbind(y)
+y0
 
 "LA MATRIZ X ES"
-X = X0[1:35,]
+x = x0[1:35,]
 
 "El vector y es"
-y = cbind(Datos[1:35,2])
+y = cbind(datos[1:35, 1])
 
 
 "El tamaño de la muestra es"
 (n=length(y))
 
-
 #Las variables son:
 
 #La varible X2t
-X2t = cbind(X[,2])
+x2t = cbind(datos[,2])
 
 "La varible X3t"
-X3t = cbind(X[,3])
+x3t = cbind(X[,3])
 
 "La varible X4t"
-X4t = cbind(X[,4])
+x4t = cbind(X[,4])
 
 "LA MATRIZ X'X ES: LA FUNCIÓN t(X) nos da la transpuesta de la matriz X"
-(XtX=t(X)%*%X)
+(xtx = t(x)%*%x)
 
 "El determinante de la matriz XtX es"
-(det_XtX = det(XtX))
+(det_xtx = det(xtx))
 
 "LA MATRIZ X'X inversa ES"
-XtX_inv = solve(XtX)
-XtX_inv
+xtx_inv = solve(xtx)
+xtx_inv
 
 "EL VECTOR Xty ES"
-Xty = t(X)%*%y
-Xty
+xty = t(x)%*%y
+xty
 
 "EL ESTIMADOR OLS b ES"
-b = XtX_inv%*%Xty
+b = xtx_inv%*%xty
 b
 
 "EL yt estimado es"
-ye = cbind(X%*%b)
+ye = cbind(x%*%b)
 ye
 
 
@@ -92,6 +92,7 @@ ye
 "Otra alternativa yte1=b1+b2x2t ...."
 yte1 = b[1] + (b[2] * X2t) + (b[3] * X3t) + (b[4] * X4t)
 yte1
+
 
 "DIAGRAMA DE DISPERSIÓN Yt VS Yt ESTIMADO" 
 "SE USA LA FUNCIÓN plot"
@@ -116,11 +117,11 @@ legend(x=1, y=122, legend = c("Observado","Estimado"),
 
 
 "La matriz de pronósticos es "
-Xf = X0[36:38,]
-Xf
+xf = x0[36:38,]
+xf
 
 "Los pronósticos para los años 2006 al 2008 son"
-yf = cbind(Xf%*%b)
+yf = cbind(xf%*%b)
 yf
 
 "Tabla de pronósticos"
@@ -135,7 +136,7 @@ T_P
 plot(y, type = "l", main = "Comparación Yt vs Yt_e",
      ylab = "Yt - Yt_e",
      xlab = "Indice", lty = 1, lwd = 1, ylim = c(35,125))
-     
+
 lines(ye, col="red", lty = 2, lwd = 1)
 legend(x=1, y=122, legend = c("Observado","Estimado"), lty = c(1,2), lwd = c(1,1))
 
@@ -302,7 +303,7 @@ c1a = c("Estadística", "ESS", "ESS1", "RSS", "RSS1",
         "TSS", "TSS1", "TSS2", "TSS_E16", "Coef. Det.")
 
 c2a = c("Valor", round(ESS,4), round(ESS1,4), round(RSS,4), round(RSS1,4), 
-      round(TSS,4), round(TSS1,4), round(TSS2,4), round(TSS_E16,4), round(R2,4))
+        round(TSS,4), round(TSS1,4), round(TSS2,4), round(TSS_E16,4), round(R2,4))
 c2a
 
 
