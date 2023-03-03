@@ -1,4 +1,4 @@
-# Ejemplo 2: con logaritmos.
+## Ejemplo 2: con logaritmos.
 
 install.packages("car")
 install.packages("readxl")
