@@ -1,14 +1,21 @@
-## Modelo en desviaciones.
+## Demanda de un bien en desviaciones.
 
-attach(Datos_Demanda_Un_Bien)
+install.packages("carData")
+install.packages("readxl")
+install.packages("Rcpp")
 
-data = Datos_Demanda_Un_Bien
-data
+library(Rcpp)
+library(carData)
+library(readxl)
+
+data = read_excel("C:/Users/USUARIO/econometrics/Datos_Demanda_Un_Bien.xls")
+
+attach(data)
 
 y = cbind(data$Y)[1:35,]
 X2t = data$X2
 X3t = data$X3
-X4t =data$X4
+X4t = data$X4
 
 "VARIABES EN DESVIACIONES Y MATRICES DE DATOS"
 "Definimos las variables en desviaciones a la media"
@@ -27,16 +34,20 @@ cm2 = c("media muestra", mean(ya1), mean(x2a), mean(x3a), mean(x4a))
 (T_M = cbind(cm1, cm2))
 
 
-"Las matrices de datos"
+#Las matrices de datos:
+
 "La matriz X2"
-data
+
 X2 = as.matrix(cbind(data[1:35,3:5]))
+X2
 
 "Forma alternativa"
 X2_1 = as.matrix(cbind(X2t,X3t,X4t))
+X2_1
 
 "La matriz X2a"
 X2a1 = as.matrix(cbind(x2a,x3a,x4a))
+X2a1
 
 "Definiciónde la matriz de transformación A"
 "La matriz identidad de orden n = 35"
@@ -47,6 +58,7 @@ I35 = diag(n)
 
 "La matriz iit"
 "El vector i"
+
 I = cbind(rep(1,n))
 
 "La matriz IIt"
