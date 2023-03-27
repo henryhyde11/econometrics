@@ -69,7 +69,8 @@ X2t = Xt[16:26]
 Y2t = Yt[16:26]
 
 "---- Diagramas de dispersión de Yt vs Xt para los tres periodos -----"
-"MODELO 1: PERIODO 1970 - 1995"
+
+# MODELO 1: PERIODO 1970 - 1995
 g1 = plot(Xt, Yt, main = "Diagrama de dispersión\n Periodo  1970 - 1995", xlab = "Ingreso", ylab = "Ahorro", pch=8, col="red")
 abline(lm(Yt~Xt), lty = 2)
 par(mfrow=c(1,2))
@@ -82,19 +83,6 @@ abline(lm(Y1t~X1t), lty = 2)
 g3 = plot(X2t, Y2t, main = "Diagrama de dispersión\n Periodo  1985 - 1995", xlab = "Ingreso", ylab = "Ahorro", pch=8, col="red")
 abline(lm(Y2t~X2t), lty = 2)
 par(mfrow=c(1,1))
-
-
-
-"ESTIMACION DEL MODELO CON TODA LA MUESTRA"
-"VALIDAR EL MODELO: SIGNIFICANCIA INDIVIDUAL, DE LA REGRESION, SIGNOS ESPERADOS, R2 Y PRUEBA DE NORMALIDAD"
-eq1 = lm(Yt~Xt)
-summary(eq1)
-
-# Prueba de Jarque - Bera
-p_jb = jarque.bera.test(et)
-
-"El valor calculado es"
-jb_c = p_jb$statistic
 
 
 
@@ -156,32 +144,8 @@ if(pv_jb >= alpha){
     "No se cumple el supuesto de normalidad"
 }
 
-"MUESTRA 1: CON LAS PRIMERA n1 = 15 Observaciones."
-"DEFINIMOS LA MATRIZ X1 y EL VECTOR y1"
-X1 = cbind(1,Datos[1:n1,3])
-y1 = Datos[1:n1,2]
+# Como extaer submuestras de los datos: se usa la subset(datos, criterio de seleccion).
 
-"DEFINIMOS LAS VARIABLES xt1 y y1"
-eq1_m1 = lm(Y1t~X1t)
-summary(eq1_m1)
-
-"El RSS de este modelo es"
-RSS1 = deviance(eq1_m1)
-
-
-"MUESTRA 2: CON LAS ultimas n2 = 11 Observaciones."
-"DEFINIMOS LA MATRIZ X2 y EL VECTOR y2"
-
-X2 = cbind(1,Datos2[,3])
-y2 = Datos2[,2]
-eq1_m2 = lm(Y2t~X2t)
-summary(eq1_m2)
-
-"El RSS de este modelo es"
-RSS2 = deviance(eq1_m2)
-
-
-"Como extaer submuestras de los datos: se usa la subset(datos, criterio de seleccion)"
 "Datos antes de la crisis"
 Datos1 = subset(Datos, date <= 1984)
 Datos1
@@ -451,13 +415,3 @@ P_CUSUM = efp(Datos$Yt~Datos$Xt, type="Rec-CUSUM")
 sctest(P_CUSUM)
 
 plot(P_CUSUM, main = "Prueba CUSUM")
-
-
-
-
-
-
-
-
-
-
