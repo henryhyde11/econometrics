@@ -28,7 +28,7 @@ library(foreign)
 
 "Libreria readxl para leer datos desde excel"
 library(readxl) #Carga el paquete
-Datos = read_excel("C:\Users\USUARIO\OneDrive - Universidad de Antioquia\Semestre 2023-1\Eco I\econometrics\Datos_Ejem2_Ingreso_Ahorro.xls")
+Datos = read_excel("C:/Users/USUARIO/OneDrive - Universidad de Antioquia/Semestre 2023-1/Eco I/econometrics/data/Datos_Ejem2_Ingreso_Ahorro.xls")
 
 Datos = data.frame(Datos) # Aqui se estable que Tiempo es una hoja de Excel
 attach(Datos)
@@ -50,6 +50,7 @@ alpha = 0.05
 
 "--- Diagrama de dispersión Yt vs t  ------------"
 "Se transforma Yt en una serie de tiempo usando la funcion ts()"
+
 Yts = cbind(ts(Yt, start = 1970, end = 1995, frequency = 1)) # Esta función tiene cuatro argumentos principales: la serie a transformar, periodo inicial, periodo final y la frecuencia al año
 
 "La serie es"
@@ -72,7 +73,9 @@ Y2t = Yt[16:26]
 
 # MODELO 1: PERIODO 1970 - 1995
 g1 = plot(Xt, Yt, main = "Diagrama de dispersión\n Periodo  1970 - 1995", xlab = "Ingreso", ylab = "Ahorro", pch=8, col="red")
-abline(lm(Yt~Xt), lty = 2)
+abline(lm(Yt ~ Xt), lty = 2)
+
+
 par(mfrow=c(1,2))
 
 # MODELO 2: PERIODO 1970 - 1984
@@ -82,46 +85,40 @@ abline(lm(Y1t~X1t), lty = 2)
 # MODELO 3: PERIODO 1985 - 1995
 g3 = plot(X2t, Y2t, main = "Diagrama de dispersión\n Periodo  1985 - 1995", xlab = "Ingreso", ylab = "Ahorro", pch=8, col="red")
 abline(lm(Y2t~X2t), lty = 2)
-par(mfrow=c(1,1))
 
+
+par(mfrow=c(1,1))
 
 
 "ESTIMACION DEL MODELO CON TODA LA MUESTRA"
 "VALIDAR EL MODELO: SIGNIFICANCIA INDIVIDUAL, DE LA REGRESION, SIGNOS ESPERADOS, R2 Y PRUEBA DE NORMALIDAD"
-eq1 = lm(Yt~Xt)
+
+eq1 = lm(Yt ~ Xt)
 summary(eq1)
 
 et = resid(eq1)
 summary(et)
 
-"El valor p"
-pv_jb = pchisq(jb_c, df = 2, lower.tail = F )
-
-"La decision"
-if(pv_jb >= alpha) {
-    "Se cumple el supuesto de normalidad"
-} else {
-        "No se cumple el supuesto de normalidad"
-}
-
-
 "-- Comparación de Yt con Yt estimado ---"
-Yte=fitted(eq1)
+
+Yte = fitted(eq1)
 plot(Yt, type = "l", main = "Comparación de Yt con Yt estimado", ylab = "Yt --- Yt_e")
 lines(Yte,lty=2, col="red")
-abline(v=15, col="blue", lty=2)
+abline(v = 15, col="blue", lty = 2)
 legend(x=1,y=250,legend = c("observado","estimado"),lty = c(1,2), col=c(1,2))
 
-"Suma de cuadrados de los erroes del modelo de la ecuación (1)"
-(RSS_R=deviance(eq1))
+"Suma de cuadrados de los errores del modelo de la ecuación (1)"
+(RSS_R = deviance(eq1))
+
+
+#Prueba de normalidad
 
 "Histograma con densidad normal"
-g1_hist=hist(et, seq(-66.0, 74, by=20), prob=TRUE, main = "Histograma para et \n con distribucion normal", ylab = "Freq. Relativas")
+g1_hist = hist(et, seq(-66.0, 74, by=20), prob=TRUE, main = "Histograma para et \n con distribucion normal", ylab = "Freq. Relativas")
 
-curve(dnorm(x,mean = mean(et),sd=sd(et)),col="red3",lty=2,lwd=2,add = TRUE)
+curve(dnorm(x,mean = mean(et), sd = sd(et)),col="red3",lty=2,lwd=2,add = TRUE)
 
 "Grafico de probabilidad normal"
-library(car)
 qqPlot(et, pch = 8, distribution = "norm", main = "Grafico de probabilidad normal", xlab = "Percentiles teoricos", ylab = "Percentiles de et", col = "red", col.lines = "black", lwd = 1)
 
 library(tseries)
@@ -134,7 +131,7 @@ jb_c = p_jb$statistic
 jb_c
 
 "El valor p"
-pv_jb=pchisq(jb_c, df = 2, lower.tail = F )
+pv_jb = pchisq(jb_c, df = 2, lower.tail = F )
 pv_jb
 
 "La decision"
@@ -143,6 +140,8 @@ if(pv_jb >= alpha){
 } else {
     "No se cumple el supuesto de normalidad"
 }
+
+
 
 # Como extaer submuestras de los datos: se usa la subset(datos, criterio de seleccion).
 
@@ -160,12 +159,13 @@ X1 = cbind(1,Datos[1:n1,3])
 y1 = Datos[1:n1,2]
 
 "DEFINIMOS LAS VARIABLES xt1 y y1"
-eq1_m1 = lm(Y1t~X1t)
+eq1_m1 = lm(Y1t ~ X1t)
 summary(eq1_m1)
 
 "El RSS de este modelo es"
 RSS1 = deviance(eq1_m1)
 RSS1
+
 
 "MUESTRA 2: CON LAS ultimas n2 = 11 Observaciones."
 "DEFINIMOS LA MATRIZ X2 y EL VECTOR y2"
@@ -222,11 +222,12 @@ RSS1
 X2=  cbind(1, Datos2[,3])
 X2
 
-"EL VARCTOR y2 ES"
+"EL VECCTOR y2 ES"
 y2 = cbind(Datos2[,2])
 y2
 
-"PASO 3"
+
+#PASO 3
 "EL PRONÓSSTICO PARA y2 CON b1 DE DE LA ETAPA 1 ES:"
 y2p = X2%*%b1
 y2p
@@ -236,9 +237,10 @@ plot(y2, type="l", main="Comparación y2 vs y2p", ylab ="y2 - y2p", xlab = "Indi
 lines(y2p,lty=3, col = "red")
 legend(x=1,y=400,legend = c("observado","pronostico"),lty = c(1,3), col = c(1,2))
 
-"PASO 4"
+
+#PASO 4
 "EL VECTOR d DE ERROES DE PRONÓSTICO"
-d = y2-y2p
+d = y2 - y2p
 d
 
 "La media del vector d es"
@@ -269,7 +271,7 @@ Tabla_decision
 
 
 "LA SUMA DE CUADRADOS DE ERRORES DEL MODELO COMPLETO ES"
-(RSS)
+(RSS_R)
 
 "LA SUMA DE CUADRADOS DE ERRORES DEL MODELO CON LAS PRIMERAS n1 OBS. ES"
 (RSS1)
@@ -278,10 +280,11 @@ Tabla_decision
 (S12)
 
 "LA ESTADÍSTICA DE LA ECUACIÓN (9) ES"
-(FC_9 = ((RSS-RSS1)/n2)/S12)
+(FC_9 = ((RSS_R - RSS1)/n2)/S12)
 
 "LA ESTADÍSTICA DE LA ECUACIÓN (8) ES"
 (FC_8)
+
 
 
 
