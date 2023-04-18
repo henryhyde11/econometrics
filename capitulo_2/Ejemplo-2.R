@@ -15,7 +15,8 @@ library(foreign)
 "Libreria readxl para leer datos desde excel"
 
 library(readxl) #Carga el paquete
-Datos = read_excel("Datos_Ejem2_Ingreso_Ahorro.xls")
+Datos = read_excel("C:/Users/USUARIO/OneDrive - Universidad de Antioquia/Semestre 2023-1/Eco I/econometrics/data/Datos_Ejem2_Ingreso_Ahorro.xls")
+
 Datos = data.frame(Datos) # Aqui se estable que Tiempo es una hoja de Excel
 attach(Datos)
 head(Datos)
@@ -60,7 +61,7 @@ Y2t = cbind(Yt[16:26])
 
 "---- Diagramas de dispersión de Yt vs Xt para los tres periodos -----"
 "MODELO 1: PERIODO 1970 - 1995"
-g1 = plot(Xt, Yt, main = "Diagrama de dispersión\n Periodo  1970 - 1995", xlab = "Ingreso", ylab = "Ahorro", pch=8, col="red")
+g1 = plot(Xt, Yt, main = "Diagrama de dispersión/n Periodo  1970 - 1995", xlab = "Ingreso", ylab = "Ahorro", pch=8, col="red")
 
 abline(lm(Yt~Xt), lty = 2)
 par(mfrow =c(1,2))
@@ -68,13 +69,13 @@ par(mfrow =c(1,2))
 
 
 "MODELO 2: PERIODO 1970 - 1984"
-g2 = plot(X1t, Y1t, main = "Diagrama de dispersión\n Periodo  1970 - 1984", xlab = "Ingreso", ylab = "Ahorro", pch=8, col="red")
+g2 = plot(X1t, Y1t, main = "Diagrama de dispersión/n Periodo  1970 - 1984", xlab = "Ingreso", ylab = "Ahorro", pch=8, col="red")
 
 abline(lm(Y1t~X1t), lty = 2)
 
 
 "MODELO 3: PERIODO 1985 - 1995"
-g3 = plot(X2t, Y2t, main = "Diagrama de dispersión\n Periodo  1985 - 1995", xlab = "Ingreso", ylab = "Ahorro", pch=8, col="red")
+g3 = plot(X2t, Y2t, main = "Diagrama de dispersión/n Periodo  1985 - 1995", xlab = "Ingreso", ylab = "Ahorro", pch=8, col="red")
 
 abline(lm(Y2t~X2t), lty = 2)
 par(mfrow=c(1,1))
@@ -107,7 +108,7 @@ grid()
 
 
 "Histograma con densidad normal"
-g1_hist=hist(et, seq(-66.0, 74, by=20), prob=TRUE, main = "Histograma para et \n con distribucion normal", ylab = "Freq. Relativas")
+g1_hist=hist(et, seq(-66.0, 74, by=20), prob=TRUE, main = "Histograma para et /n con distribucion normal", ylab = "Freq. Relativas")
 
 curve(dnorm(x,mean = mean(et),sd=sd(et)),col="red3",lty=2,lwd=2,add = TRUE)
 
@@ -335,7 +336,7 @@ Tabla_decision=cbind(C1, C2)
 Tabla_decision
 
 
-PRUEBA CON LA ESTADÍSTICA F DE LA ECUACIÓN (9)
+#PRUEBA CON LA ESTADÍSTICA F DE LA ECUACIÓN (9)
 
 "LA SUMA DE CUADRADOS DE ERRORES DEL MODELO COMPLETO ES"
 (RSS)

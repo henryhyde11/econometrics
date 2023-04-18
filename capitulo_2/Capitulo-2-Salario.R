@@ -1,17 +1,14 @@
-#CAPITULO II
-
-# Salario
+#CAPITULO II.
+# Salario.
 
 #install.packages("readxl")
 library(readxl) 
 
-Datos = read_excel("C:\Users\USUARIO\OneDrive - Universidad de Antioquia\Semestre 2023-1\Eco I\econometrics\Datos_Ejemplo_3_salarios.xls")
-Datos = data.frame(Datos) 
+Datos_salarios = read_excel("C:/Users/USUARIO/OneDrive - Universidad de Antioquia/Semestre 2023-1/Eco I/econometrics/data/Datos_Ejemplo_3_salarios.xls")
+
+Datos = data.frame(Datos_salarios) 
 attach(Datos)
-head(Datos
-)
-library(normtest)
-library(car)
+head(Datos)
 
 "Las variables del modelo es"
 Yt = cbind(YT)
@@ -20,8 +17,10 @@ X3t = cbind(X3T)
 
 "ANÁLISIS GRÁFICO DEL SALARIO: LOS DATOS ESTÁN ORDENADOS DE FORMA QUE LAS PRIMERAS 15 OBSERVACIONES CORRESPONDEN AL SALARIO DE LOS HOMBRES Y LAS ULTIMAS 15 CORRESPONDE AL SALARIO PARA LAS MUJERES"
 "DINÁMICA DEL SALARIO"
-plot(Yt, type ="l", main = "Evolución del salario", xlab="índice", ylab="Salario", lwd =2)
-abline(v=15, lty = 2, col="blue")
+plot(Yt, type ="l", main = "Evolución del salario",
+     xlab="índice", ylab="Salario", lwd =2)
+abline(v = 15, lty = 2, col = "blue")
+
 
 "VARIABLES PARA LOS HOMBRES"
 y1h = cbind(Yt[1:15])
@@ -37,6 +36,8 @@ x3tM = cbind(X3t[16:30])
 plot(y1h, type="l", main="Comparación salarios hombre y mujeres",xlab = "Indice", ylab ="Salario")
 lines(y2M,lty=3, col="red")
 legend(x=1,y=3450,legend = c("Hombres","Mujeres"),lty = c(1,3), col=c(1,2))
+
+
 
 
 "---------------- Variables para el modelo no restringido------------------"
